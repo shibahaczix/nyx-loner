@@ -197,6 +197,12 @@ final.lib.makeScope final.newScope (self: {
 
     extraAttrs = prevAttrs: {
       nativeBuildInputs = prevAttrs.nativeBuildInputs or [ ] ++ [ final.python3 ];
+
+      buildInputs =
+        (prevAttrs.buildInputs or [ ])
+        ++ final.lib.optionals final.stdenv.hostPlatform.isLinux [
+          final.libxext
+        ];
     };
   };
 })
